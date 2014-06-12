@@ -1,5 +1,8 @@
+require 'librarian/puppet/util'
+
 begin
   require 'puppet'
+  require 'puppet/module_tool'
 rescue LoadError
   $stderr.puts <<-EOF
 Unable to load puppet, the puppet gem is required for :git and :path source.
@@ -23,13 +26,11 @@ module Librarian
           found_path = found_path(name)
           raise Error, "Path for #{name} doesn't contain a puppet module" if found_path.nil?
 
-          if name.include? '/'
-            new_name = name.split('/').last
-            debug { "Invalid module name '#{name}', guessing you meant '#{new_name}'" }
-            name = new_name
+          unless name.include? '/'
+            warn { "Invalid module name '#{name}', you should qualify it with 'ORGANIZATION/#{name}' for resolution to work correctly" }
           end
 
-          install_path = environment.install_path.join(name)
+          install_path = environment.install_path.join(name.split('/').last)
           if install_path.exist?
             debug { "Deleting #{relative_path_to(install_path)}" }
             install_path.rmtree
@@ -82,7 +83,11 @@ module Librarian
             ::Puppet::ModuleTool::ModulefileReader.evaluate(metadata, modulefile)
           rescue ArgumentError, SyntaxError => error
             warn { "Unable to parse #{modulefile}, ignoring: #{error}" }
-            metadata.version = '0.0.1'
+            if metadata.respond_to? :version=
+              metadata.version = '0.0.1' # puppet < 3.6
+            else
+              metadata.update({'version' => '0.0.1'}) # puppet >= 3.6
+            end
           end
           metadata
         end

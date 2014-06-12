@@ -1,7 +1,43 @@
 ## Changelog
 
+### 1.1.1
+
+### 1.1.0
+
+ * [Issue #210](https://github.com/rodjek/librarian-puppet/issues/210) Use forgeapi.puppetlabs.com and API v3
+   * Accesing the v3 API requires Ruby 1.9 due to the puppet_forge library used
+
+### 1.0.3
+
+ * [Issue #223](https://github.com/rodjek/librarian-puppet/issues/223) `Cannot bounce Puppetfile.lock!` error when Forge modules contain duplicated dependencies
+
+### 1.0.2
+
+ * [Issue #211](https://github.com/rodjek/librarian-puppet/issues/211) Pass the PuppetLabs Forge API v3 endpoint to `puppet module` when running on Puppet >= 3.6.0
+ * [Issue #198](https://github.com/rodjek/librarian-puppet/issues/198) Reduce the length of tmp dirs to avoid issues in windows
+ * [Issue #206](https://github.com/rodjek/librarian-puppet/issues/206) githubtarball call for released versions does not consider pagination
+ * [Issue #204](https://github.com/rodjek/librarian-puppet/issues/204) Fix regex to detect Forge API v3 url
+ * [Issue #199](https://github.com/rodjek/librarian-puppet/issues/199) undefined method run! packaging a git source
+ * Verify SSL certificates in github calls
+
+### 1.0.1
+
+ * [Issue #190](https://github.com/rodjek/librarian-puppet/issues/190) Pass the PuppetLabs Forge API v3 endpoint to `puppet module` when running on Puppet Enterprise >= 3.2
+ * [Issue #196](https://github.com/rodjek/librarian-puppet/issues/196) Fix error in error handling when puppet is not installed
+
+### 1.0.0
+
+ * Remove deprecation warning for github_tarball sources, some people are actually using it
+
+### 0.9.17
+
+ * [Issue #193](https://github.com/rodjek/librarian-puppet/issues/193) Support Puppet 3.5.0
+
 ### 0.9.16
 
+ * [Issue #181](https://github.com/rodjek/librarian-puppet/issues/181) Should use qualified module names for resolution to work correctly
+ * Deprecate github_tarball sources
+ * Reduce number of API calls for github_tarball sources
 
 ### 0.9.15
 
